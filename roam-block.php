@@ -27,7 +27,7 @@ function artpi_roam_block_block_init() {
 		);
 	}
 	$index_js     = 'build/index.js';
-	$script_asset = require( $script_asset_path );
+	$script_asset = require $script_asset_path;
 	wp_register_script(
 		'artpi-roam-block-block-editor',
 		plugins_url( $index_js, __FILE__ ),
@@ -60,5 +60,6 @@ function artpi_roam_block_block_init() {
 			'style'         => 'artpi-roam-block-block',
 		)
 	);
+	require_once __DIR__ . '/endpoints.php';
 }
 add_action( 'init', 'artpi_roam_block_block_init' );

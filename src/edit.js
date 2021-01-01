@@ -4,6 +4,10 @@
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
+import { InspectorControls } from '@wordpress/block-editor';
+import { PanelBody } from '@wordpress/components';
+import { FormFileUpload } from '@wordpress/components';
+import apiFetch from '@wordpress/api-fetch';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -21,6 +25,22 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 import './editor.scss';
 
+function upload( file ) {
+	const reader = new FileReader();
+	reader.readAsText( file );
+	reader.onload = function(fileLoadedEvent){
+		var graphContent = fileLoadedEvent.target.result;
+		apiFetch( {
+			path: '/roam-research/upload-graph',
+			method: 'POST',
+			data: {
+				graphContent,
+				graphName: file.name.replace( '.json', '' )
+			}
+		} );
+	};
+}
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -31,11 +51,25 @@ import './editor.scss';
  */
 export default function Edit() {
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Roam Research Block – hello from the editor!',
-				'roam-block'
-			) }
-		</p>
+		<div { ...useBlockProps() }>
+			{
+				<InspectorControls>
+					<PanelBody title={ __( 'Your Roam Graph export', 'roam-block' ) } initialOpen="true">
+						<FormFileUpload isPrimary
+							accept="application/json"
+							onChange={ ( event ) => upload( event.target.files.item(0) ) }
+						>
+							{ __( 'Upload .json file', 'roam-block' ) }
+						</FormFileUpload>
+					</PanelBody>
+				</InspectorControls>
+			}
+			<div>
+				{ __(
+					'Roam Research Block – hello from the editor!',
+					'roam-block'
+				) }
+			</div>
+		</div>
 	);
 }
