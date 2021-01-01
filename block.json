@@ -1,0 +1,15 @@
+{
+	"apiVersion": 2,
+	"name": "artpi/roam-block",
+	"title": "Roam Research Block",
+	"category": "embed",
+	"icon": "sos",
+	"description": "Embed Roam Blocks or pages in WordPress, just as you would in Roam",
+	"textdomain": "roam-block",
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

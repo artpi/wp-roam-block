@@ -1,0 +1,16 @@
+{
+  "name": "artpi/roam_block",
+  "description": "Embed Roam Blocks or pages in WordPress, just as you would in Roam",
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.4.0",
+    "wp-coding-standards/wpcs": "^1.2.1"
+  },
+  "scripts": {
+    "lint": [
+      "phpcs --standard=phpcs.xml ./"
+    ],
+    "phpcbf": [
+      "phpcbf --standard=phpcs.xml ./"
+    ]
+  }
+}
