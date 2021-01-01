@@ -52,12 +52,17 @@ function upload( file ) {
  * @return {WPElement} Element to render.
  */
 export default function Edit( { attributes, setAttributes } ) {
-	const [ search, setSearch ] = useState( false );
+	const [ search, setSearch ] = useState( '' );
+
 	useEffect(
 		() => {
 			const handler = setTimeout( () => {
-				console.log( 'DEBOUNCED' );
-			}, 1000 );
+				if ( search.length > 5 ) {
+					apiFetch( { path: `/roam-research/search_block?q=${search}` } )
+						.then( ( results ) => console.log( results ) )
+						.catch( ( e ) => console.log( e ) );
+				}
+			}, 500 );
 
 			return () => {
 				clearTimeout( handler );
@@ -89,6 +94,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				{ ! attributes.uid && (
 					<TextControl
 						label="Search Roam Block"
+						placeholder="Search Roam block just as you would with (("
 						value={ search }
 						onChange={ ( val ) => setSearch( val ) }
 					/>
