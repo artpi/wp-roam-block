@@ -13,6 +13,9 @@ build/Release
 
 # Dependency directories
 node_modules/
+vendor/
+composer.lock
+
 
 # Optional npm cache directory
 .npm
