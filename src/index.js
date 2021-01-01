@@ -41,6 +41,10 @@ registerBlockType( 'artpi/roam-block', {
 		uid: {
 			type: 'string',
 		},
+		content: {
+			type: 'html',
+			source: 'children',
+		},
 	},
 	/**
 	 * This is the display title for your block, which can be translated with `i18n` functions.
