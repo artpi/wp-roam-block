@@ -53,13 +53,14 @@ function upload( file ) {
  */
 export default function Edit( { attributes, setAttributes } ) {
 	const [ search, setSearch ] = useState( '' );
+	const [ foundBlocks, setFoundBlocks ] = useState( [] );
 
 	useEffect(
 		() => {
 			const handler = setTimeout( () => {
 				if ( search.length > 5 ) {
 					apiFetch( { path: `/roam-research/search_block?q=${search}` } )
-						.then( ( results ) => console.log( results ) )
+						.then( setFoundBlocks )
 						.catch( ( e ) => console.log( e ) );
 				}
 			}, 500 );
@@ -92,12 +93,17 @@ export default function Edit( { attributes, setAttributes } ) {
 			}
 			<div>
 				{ ! attributes.uid && (
-					<TextControl
-						label="Search Roam Block"
-						placeholder="Search Roam block just as you would with (("
-						value={ search }
-						onChange={ ( val ) => setSearch( val ) }
-					/>
+					<div>
+						<TextControl
+							label="Search Roam Block"
+							placeholder="Search Roam block just as you would with (("
+							value={ search }
+							onChange={ setSearch }
+						/>
+						<div>
+							{ foundBlocks.map( ( { content, uid } ) => <div key={ uid }>{ content }</div> ) }
+						</div>
+					</div>
 				) }
 			</div>
 		</div>
