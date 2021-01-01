@@ -10,6 +10,7 @@ import { FormFileUpload } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import { TextControl } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
+import { Placeholder } from '@wordpress/components';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -91,21 +92,27 @@ export default function Edit( { attributes, setAttributes } ) {
 					</PanelBody>
 				</InspectorControls>
 			}
-			<div>
-				{ ! attributes.uid && (
-					<div>
-						<TextControl
-							label="Search Roam Block"
-							placeholder="Search Roam block just as you would with (("
-							value={ search }
-							onChange={ setSearch }
-						/>
-						<div>
-							{ foundBlocks.map( ( { content, uid } ) => <div key={ uid }>{ content }</div> ) }
-						</div>
+			{ ! attributes.uid && (
+				<Placeholder label="Roam Block Embed">
+					<TextControl
+						label="Search Roam Block"
+						placeholder="Search Roam block just as you would with (("
+						value={ search }
+						onChange={ setSearch }
+					/>
+					<div className="wp-block-artpi-roam-block-results">
+						{ foundBlocks.map( ( { content, uid } ) => (
+							<div
+								key={ uid }
+								onClick={ () => setAttributes( { uid: uid, content: content } ) }
+							>
+								{ content }
+							</div>
+						) ) }
 					</div>
-				) }
-			</div>
+					</Placeholder>
+			) }
+			{ attributes.content && attributes.content }
 		</div>
 	);
 }

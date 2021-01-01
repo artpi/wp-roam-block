@@ -4,6 +4,12 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-artpi-roam-block {
-	border: 1px dotted #f00;
+.wp-block-artpi-roam-block-results > div {
+	font-size: 0.8em;
+	font-style: italic;
+	padding: 8px;
+}
+.wp-block-artpi-roam-block-results > div:hover {
+	background-color: var(--wp-admin-theme-color);
+	color: #fff;
 }
