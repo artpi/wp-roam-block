@@ -5,6 +5,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useBlockProps } from '@wordpress/block-editor';
+import { RawHTML } from '@wordpress/element';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -18,7 +19,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 export default function save( { attributes } ) {
 	return (
 		<div { ...useBlockProps.save() }>
-			{ attributes.content }
+			<RawHTML>{ attributes.content && attributes.content }</RawHTML>
 		</div>
 	);
 }

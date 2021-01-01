@@ -9,7 +9,7 @@ import { PanelBody } from '@wordpress/components';
 import { FormFileUpload } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import { TextControl } from '@wordpress/components';
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect, RawHTML } from '@wordpress/element';
 import { Placeholder } from '@wordpress/components';
 
 /**
@@ -101,12 +101,13 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ setSearch }
 					/>
 					<div className="wp-block-artpi-roam-block-results">
-						{ foundBlocks.map( ( { content, uid } ) => (
+						{ foundBlocks.map( ( { content, uid, title } ) => (
 							<div
 								key={ uid }
 								onClick={ () => setAttributes( { uid: uid, content: content } ) }
 							>
-								{ content }
+								<div className="wp-block-artpi-roam-block-results-title">{ title }</div>
+								<RawHTML>{ content }</RawHTML>
 							</div>
 						) ) }
 					</div>

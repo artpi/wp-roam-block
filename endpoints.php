@@ -1,5 +1,6 @@
 <?php
 namespace Artpi\RoamBlock;
+require_once  __DIR__ . '/Parsedown.php';
 
 add_action(
 	'rest_api_init',
@@ -38,12 +39,13 @@ function roam_update_graph( \WP_REST_Request $request ) {
 	return array( 'ok' => true );
 }
 
-function traverse_roam_graph( $node, $search, $results = [] ) {
+function traverse_roam_graph( $node, $search, $title = '', $results = [] ) {
 	if ( isset( $node['string'] ) && stristr( $node['string'], $search ) ) {
 		$results = array_merge(
 			$results,
 			[
 				[
+					'title' => $title,
 					'content' => $node['string'],
 					'uid' => $node['uid'],
 				],
@@ -57,7 +59,11 @@ function traverse_roam_graph( $node, $search, $results = [] ) {
 		$nodes = $node['children'];
 	}
 	foreach ( $nodes as $child ) {
-		$results = traverse_roam_graph( $child, $search, $results );
+		$item_title = $title;
+		if ( ! $title && $child['title'] ) {
+			$item_title = $child['title'];
+		}
+		$results = traverse_roam_graph( $child, $search, $item_title, $results );
 	}
 	return $results;
 }
@@ -66,5 +72,10 @@ function roam_search( \WP_REST_Request $request ) {
 	$params = $request->get_params();
 	$search = $params['q'];
 	$graph = json_decode( get_option( 'roam_graph_content' ), true );
-	return traverse_roam_graph( $graph, $search, array() );
+	$results = traverse_roam_graph( $graph, $search, array() );
+	$md_parser = new \Parsedown();
+	return array_map( function( $item ) use ( $md_parser ) {
+		$item['content'] = $md_parser->text( $item['content'] );
+		return $item;
+	}, $results );
 }

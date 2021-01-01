@@ -78,7 +78,7 @@ registerBlockType( 'artpi/roam-block', {
 	 */
 	supports: {
 		// Removes support for an HTML mode.
-		html: false,
+		html: true,
 	},
 
 	/**
