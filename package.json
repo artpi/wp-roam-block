@@ -11,9 +11,11 @@
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"start": "wp-scripts start",
-		"packages-update": "wp-scripts packages-update"
+		"packages-update": "wp-scripts packages-update",
+		"env-start": "wp-env start"
 	},
 	"devDependencies": {
+		"@wordpress/env": "^3.0.0",
 		"@wordpress/scripts": "^12.6.0"
 	}
 }
