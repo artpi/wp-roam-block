@@ -8,6 +8,8 @@ import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { FormFileUpload } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
+import { TextControl } from '@wordpress/components';
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -28,15 +30,15 @@ import './editor.scss';
 function upload( file ) {
 	const reader = new FileReader();
 	reader.readAsText( file );
-	reader.onload = function(fileLoadedEvent){
+	reader.onload = function ( fileLoadedEvent ) {
 		var graphContent = fileLoadedEvent.target.result;
 		apiFetch( {
 			path: '/roam-research/upload-graph',
 			method: 'POST',
 			data: {
 				graphContent,
-				graphName: file.name.replace( '.json', '' )
-			}
+				graphName: file.name.replace( '.json', '' ),
+			},
 		} );
 	};
 }
@@ -49,15 +51,34 @@ function upload( file ) {
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit() {
+export default function Edit( { attributes, setAttributes } ) {
+	const [ search, setSearch ] = useState( false );
+	useEffect(
+		() => {
+			const handler = setTimeout( () => {
+				console.log( 'DEBOUNCED' );
+			}, 1000 );
+
+			return () => {
+				clearTimeout( handler );
+			};
+		},
+		[ search ] // Only re-call effect if value or delay changes
+	);
 	return (
 		<div { ...useBlockProps() }>
 			{
 				<InspectorControls>
-					<PanelBody title={ __( 'Your Roam Graph export', 'roam-block' ) } initialOpen="true">
-						<FormFileUpload isPrimary
+					<PanelBody
+						title={ __( 'Your Roam Graph export', 'roam-block' ) }
+						initialOpen="true"
+					>
+						<FormFileUpload
+							isPrimary
 							accept="application/json"
-							onChange={ ( event ) => upload( event.target.files.item(0) ) }
+							onChange={ ( event ) =>
+								upload( event.target.files.item( 0 ) )
+							}
 						>
 							{ __( 'Upload .json file', 'roam-block' ) }
 						</FormFileUpload>
@@ -65,9 +86,12 @@ export default function Edit() {
 				</InspectorControls>
 			}
 			<div>
-				{ __(
-					'Roam Research Block – hello from the editor!',
-					'roam-block'
+				{ ! attributes.uid && (
+					<TextControl
+						label="Search Roam Block"
+						value={ search }
+						onChange={ ( val ) => setSearch( val ) }
+					/>
 				) }
 			</div>
 		</div>
