@@ -20,7 +20,7 @@ add_action(
 				'methods'             => 'GET',
 				'callback'            => __NAMESPACE__ . '\roam_search',
 				'permission_callback' => __NAMESPACE__ . '\check_permissions',
-			),
+			)
 		);
 	}
 );
