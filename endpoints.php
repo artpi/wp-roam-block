@@ -55,12 +55,12 @@ function get_children_content( $node ) {
 	return $ret;
 }
 
-function search_roam_graph( $node, $search, $title = '', $results = [] ) {
+function search_roam_graph( $node, $search, $title = '', $results = [], $parent = [] ) {
 	$md_parser = new \Parsedown();
 	if ( isset( $node['string'] ) && (
 		stristr( $node['string'], $search ) || (
-			isset( $node['title'] ) &&
-			stristr( $node['title'], $search )
+			isset( $parent['title'] ) &&
+			stristr( $parent['title'], $search )
 		)
 	) ) {
 		$results = array_merge(
@@ -86,7 +86,7 @@ function search_roam_graph( $node, $search, $title = '', $results = [] ) {
 		if ( ! $title && $child['title'] ) {
 			$item_title = $child['title'];
 		}
-		$results = search_roam_graph( $child, $search, $item_title, $results );
+		$results = search_roam_graph( $child, $search, $item_title, $results, $node );
 	}
 	return $results;
 }
@@ -95,6 +95,6 @@ function roam_search( \WP_REST_Request $request ) {
 	$params = $request->get_params();
 	$search = $params['q'];
 	$graph = json_decode( get_option( 'roam_graph_content' ), true );
-	$results = search_roam_graph( $graph, $search, array() );
+	$results = search_roam_graph( $graph, $search, '', array(), array() );
 	return $results;
 }
