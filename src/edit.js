@@ -96,7 +96,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								upload( event.target.files.item( 0 ), setGraphStatus )
 							}
 						>
-							{ __( 'Upload .json file', 'roam-block' ) }
+							{ __( 'Upload .json file from Roam Research export', 'roam-block' ) }
 						</FormFileUpload>
 					</PanelBody>
 				</InspectorControls>
@@ -112,7 +112,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								upload( event.target.files.item( 0 ), setGraphStatus )
 							}
 						>
-							{ __( 'Upload .json file', 'roam-block' ) }
+							{ __( 'Upload .json file from Roam Research export', 'roam-block' ) }
 						</FormFileUpload>
 					</Fragment> ) }
 					{ graphStatus === 'OK' && ( <Fragment>
