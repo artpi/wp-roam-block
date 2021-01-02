@@ -94,7 +94,10 @@ function search_roam_graph( $node, $search, $title = '', $results = [], $parent 
 function roam_search( \WP_REST_Request $request ) {
 	$params = $request->get_params();
 	$search = $params['q'];
-	$graph = json_decode( get_option( 'roam_graph_content' ), true );
+	$graph = get_roam_graph();
+	if ( ! $graph ) {
+		return new \WP_Error( 'graph_missing', 'Please upload your Roam Graph', [ 'status' => 403 ] );
+	}
 	$results = search_roam_graph( $graph, $search, '', array(), array() );
 	return $results;
 }
@@ -115,8 +118,23 @@ function find_block_by_uid( $uid, $nodes ) {
 	return false;
 }
 
+function get_roam_graph() {
+	$data = get_option( 'roam_graph_content' );
+	if ( ! $data ) {
+		return [];
+	}
+	return json_decode( $data, true );
+}
+
 function render_block( $attributes, $content ) {
-	$block = find_block_by_uid( $attributes['uid'], json_decode( get_option( 'roam_graph_content' ), true ) );
+	if ( ! isset( $attributes['uid'] ) ) {
+		return $content;
+	}
+	$graph = get_roam_graph();
+	if ( ! $graph ) {
+		return $content;
+	}
+	$block = find_block_by_uid( $attributes['uid'], $graph );
 	if ( ! $block ) {
 		return $content;
 	}
