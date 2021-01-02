@@ -7,7 +7,7 @@
 	"description": "Embed Roam Blocks or pages in WordPress, just as you would in Roam",
 	"textdomain": "roam-block",
 	"supports": {
-		"html": false
+		"html": true
 	},
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/index.css",
