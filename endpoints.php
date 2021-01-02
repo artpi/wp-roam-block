@@ -1,8 +1,6 @@
 <?php
 namespace Artpi\RoamBlock;
 
-require_once __DIR__ . '/Parsedown.php';
-
 add_action(
 	'rest_api_init',
 	function () {
@@ -41,6 +39,7 @@ function roam_update_graph( \WP_REST_Request $request ) {
 }
 
 function get_children_content( $node ) {
+	require_once __DIR__ . '/Parsedown.php';
 	$md_parser = new \Parsedown();
 	$ret       = '';
 	if ( isset( $node['string'] ) ) {
@@ -57,6 +56,7 @@ function get_children_content( $node ) {
 }
 
 function search_roam_graph( $node, $search, $title = '', $results = [], $parent = [] ) {
+	require_once __DIR__ . '/Parsedown.php';
 	$md_parser = new \Parsedown();
 	if ( isset( $node['string'] ) && (
 		stristr( $node['string'], $search ) || (
