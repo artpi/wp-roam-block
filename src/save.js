@@ -19,7 +19,7 @@ import { RawHTML } from '@wordpress/element';
 export default function save( { attributes } ) {
 	return (
 		<div { ...useBlockProps.save() }>
-			<RawHTML>{ attributes.content && attributes.content }</RawHTML>
+			{  attributes.content &&( <RawHTML>{ attributes.content }</RawHTML> ) }
 		</div>
 	);
 }

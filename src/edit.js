@@ -72,6 +72,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		},
 		[ search ] // Only re-call effect if value or delay changes
 	);
+
 	return (
 		<div { ...useBlockProps() }>
 			{
@@ -101,19 +102,19 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ setSearch }
 					/>
 					<div className="wp-block-artpi-roam-block-results">
-						{ foundBlocks.map( ( { content, uid, title } ) => (
+						{ foundBlocks.map( ( { content, uid, title, snippet } ) => (
 							<div
 								key={ uid }
 								onClick={ () => setAttributes( { uid: uid, content: content } ) }
 							>
 								<div className="wp-block-artpi-roam-block-results-title">{ title }</div>
-								<RawHTML>{ content }</RawHTML>
+								<div>{ snippet }</div>
 							</div>
 						) ) }
 					</div>
 					</Placeholder>
 			) }
-			{ attributes.content && attributes.content }
+			{  attributes.content && ( <RawHTML children={ attributes.content } /> ) }
 		</div>
 	);
 }

@@ -42,8 +42,9 @@ registerBlockType( 'artpi/roam-block', {
 			type: 'string',
 		},
 		content: {
-			type: 'html',
-			source: 'children',
+			type: 'string',
+			source: 'text',
+			default: ''
 		},
 	},
 	/**

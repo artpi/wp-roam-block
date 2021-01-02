@@ -39,14 +39,37 @@ function roam_update_graph( \WP_REST_Request $request ) {
 	return array( 'ok' => true );
 }
 
-function traverse_roam_graph( $node, $search, $title = '', $results = [] ) {
-	if ( isset( $node['string'] ) && stristr( $node['string'], $search ) ) {
+function get_children_content( $node ) {
+	$md_parser = new \Parsedown();
+	$ret = '';
+	if ( isset( $node['string'] ) ) {
+		$ret .= $md_parser->line( $node['string'] );
+	}
+	if ( isset( $node['children'] ) ) {
+		$ret .= '<ul>';
+		foreach ( $node['children'] as $child ) {
+			$ret .= '<li>' . get_children_content( $child ) . '</li>';
+		}
+		$ret .= '</ul>';
+	}
+	return $ret;
+}
+
+function search_roam_graph( $node, $search, $title = '', $results = [] ) {
+	$md_parser = new \Parsedown();
+	if ( isset( $node['string'] ) && (
+		stristr( $node['string'], $search ) || (
+			isset( $node['title'] ) &&
+			stristr( $node['title'], $search )
+		)
+	) ) {
 		$results = array_merge(
 			$results,
 			[
 				[
 					'title' => $title,
-					'content' => $node['string'],
+					'snippet' => strip_tags( $md_parser->line( $node['string'] ) ),
+					'content' => get_children_content( $node ),
 					'uid' => $node['uid'],
 				],
 			]
@@ -63,7 +86,7 @@ function traverse_roam_graph( $node, $search, $title = '', $results = [] ) {
 		if ( ! $title && $child['title'] ) {
 			$item_title = $child['title'];
 		}
-		$results = traverse_roam_graph( $child, $search, $item_title, $results );
+		$results = search_roam_graph( $child, $search, $item_title, $results );
 	}
 	return $results;
 }
@@ -72,10 +95,6 @@ function roam_search( \WP_REST_Request $request ) {
 	$params = $request->get_params();
 	$search = $params['q'];
 	$graph = json_decode( get_option( 'roam_graph_content' ), true );
-	$results = traverse_roam_graph( $graph, $search, array() );
-	$md_parser = new \Parsedown();
-	return array_map( function( $item ) use ( $md_parser ) {
-		$item['content'] = $md_parser->text( $item['content'] );
-		return $item;
-	}, $results );
+	$results = search_roam_graph( $graph, $search, array() );
+	return $results;
 }
