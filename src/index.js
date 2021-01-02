@@ -43,7 +43,8 @@ registerBlockType( 'artpi/roam-block', {
 		},
 		content: {
 			type: 'string',
-			source: 'text',
+			source: 'html',
+			selector: '.wp-block-artpi-roam-block',
 			default: ''
 		},
 	},

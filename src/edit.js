@@ -114,7 +114,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					</div>
 					</Placeholder>
 			) }
-			{  attributes.content && ( <RawHTML children={ attributes.content } /> ) }
+			{  attributes.content && ( <RawHTML>{ attributes.content }</RawHTML> ) }
 		</div>
 	);
 }
