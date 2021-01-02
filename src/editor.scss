@@ -3,6 +3,9 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
+.wp-block-artpi-roam-block, .wp-block-artpi-roam-block-results, .wp-block-artpi-roam-block .components-placeholder__fieldset, .wp-block-artpi-roam-block .components-base-control {
+	width: 100%;
+}
 
 .wp-block-artpi-roam-block-results > div {
 	font-size: 0.8em;
