@@ -8,11 +8,11 @@ Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Embed Roam Blocks in WordPress, just as you would in Roam
+Embed Roam Blocks in WordPress, just as you would in Roam Research.
 
 == Description ==
 
-This block let's you search and embed Roam Research blocks inside WordPress block editor.
+This block let's you search and embed [Roam Research](https://roamresearch.com/) blocks inside WordPress block editor.
 WordPress Block editor and Roam are a match made in heaven!
 
 = The blocks are embedded =
@@ -44,6 +44,12 @@ You can also paste links like `https://roamresearch.com/#/app/graph/page/ratars7
 1. Now you can search your Roam graph directly from the "Roam Block" block or paste embed URLs.
 
 == Frequently Asked Questions ==
+
+
+= What is Roam Research? =
+
+Roam Research is a tool for networked thought - a note-taking tool that is block-based.
+Since blocks are a conceptual unit of both Gutenberg and Roam - I created this plugin.
 
 = Why do I have to manually upload the roam graph? =
 
