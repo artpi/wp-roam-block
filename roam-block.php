@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:     Roam Research Block
+ * Plugin Name:     Roam Block
  * Description:     Embed Roam Blocks or pages in WordPress, just as you would in Roam
  * Version:         0.1.0
  * Author:          Artur Piszek (artpi)
