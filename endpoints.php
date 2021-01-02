@@ -148,8 +148,5 @@ function render_block( $attributes, $content ) {
 );
  
 function wpdocs_embed_handler_roam( $matches, $attr, $url, $rawattr ) {
-	if ( $matches[1] !== get_option( 'roam_graph_name' ) ) {
-		return apply_filters( 'embed_roam_research', '', $matches, $attr, $url, $rawattr );
-	}
 	return apply_filters( 'embed_roam_research', render_block( [ 'uid' => $matches[2] ], '' ), $matches, $attr, $url, $rawattr );
 }
