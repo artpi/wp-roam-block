@@ -107,8 +107,8 @@ function find_block_by_uid( $uid, $nodes ) {
 		if ( isset( $child['uid'] ) && $child['uid'] === $uid ) {
 			return $child;
 		}
-		if ( !isset( $child['children'] ) || ! $child['children'] ) {
-			return false;
+		if ( ! isset( $child['children'] ) || ! $child['children'] ) {
+			continue;
 		}
 		$found = find_block_by_uid( $uid, $child['children'] );
 		if ( $found ) {
@@ -139,4 +139,17 @@ function render_block( $attributes, $content ) {
 		return $content;
 	}
 	return '<div class="wp-block-artpi-roam-block">' . get_children_content( $block ) . '</div>';
+}
+
+\wp_embed_register_handler(
+    'roam_research',
+    '&https:\/\/roamresearch\.com\/#\/app\/(\w+)\/page\/([a-zA-Z0-9-_]+)&i',
+    __NAMESPACE__ . '\wpdocs_embed_handler_roam'
+);
+ 
+function wpdocs_embed_handler_roam( $matches, $attr, $url, $rawattr ) {
+	if ( $matches[1] !== get_option( 'roam_graph_name' ) ) {
+		return apply_filters( 'embed_roam_research', '', $matches, $attr, $url, $rawattr );
+	}
+	return apply_filters( 'embed_roam_research', render_block( [ 'uid' => $matches[2] ], '' ), $matches, $attr, $url, $rawattr );
 }
