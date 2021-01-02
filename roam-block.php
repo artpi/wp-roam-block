@@ -55,10 +55,10 @@ function artpi_roam_block_block_init() {
 	register_block_type(
 		'artpi/roam-block',
 		array(
-			'editor_script' => 'artpi-roam-block-block-editor',
-			'editor_style'  => 'artpi-roam-block-block-editor',
-			'style'         => 'artpi-roam-block-block',
-			'render_callback' => 'Artpi\RoamBlock\render_block'
+			'editor_script'   => 'artpi-roam-block-block-editor',
+			'editor_style'    => 'artpi-roam-block-block-editor',
+			'style'           => 'artpi-roam-block-block',
+			'render_callback' => 'Artpi\RoamBlock\render_block',
 		)
 	);
 	require_once __DIR__ . '/endpoints.php';

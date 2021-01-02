@@ -1,6 +1,7 @@
 <?php
 namespace Artpi\RoamBlock;
-require_once  __DIR__ . '/Parsedown.php';
+
+require_once __DIR__ . '/Parsedown.php';
 
 add_action(
 	'rest_api_init',
@@ -41,7 +42,7 @@ function roam_update_graph( \WP_REST_Request $request ) {
 
 function get_children_content( $node ) {
 	$md_parser = new \Parsedown();
-	$ret = '';
+	$ret       = '';
 	if ( isset( $node['string'] ) ) {
 		$ret .= $md_parser->line( $node['string'] );
 	}
@@ -67,10 +68,10 @@ function search_roam_graph( $node, $search, $title = '', $results = [], $parent 
 			$results,
 			[
 				[
-					'title' => $title,
-					'snippet' => strip_tags( $md_parser->line( $node['string'] ) ),
+					'title'   => $title,
+					'snippet' => wp_strip_all_tags( $md_parser->line( $node['string'] ) ),
 					'content' => get_children_content( $node ),
-					'uid' => $node['uid'],
+					'uid'     => $node['uid'],
 				],
 			]
 		);
@@ -94,7 +95,7 @@ function search_roam_graph( $node, $search, $title = '', $results = [], $parent 
 function roam_search( \WP_REST_Request $request ) {
 	$params = $request->get_params();
 	$search = $params['q'];
-	$graph = get_roam_graph();
+	$graph  = get_roam_graph();
 	if ( ! $graph ) {
 		return new \WP_Error( 'graph_missing', 'Please upload your Roam Graph', [ 'status' => 403 ] );
 	}
@@ -142,11 +143,11 @@ function render_block( $attributes, $content ) {
 }
 
 \wp_embed_register_handler(
-    'roam_research',
-    '&https:\/\/roamresearch\.com\/#\/app\/(\w+)\/page\/([a-zA-Z0-9-_]+)&i',
-    __NAMESPACE__ . '\wpdocs_embed_handler_roam'
+	'roam_research',
+	'&https:\/\/roamresearch\.com\/#\/app\/(\w+)\/page\/([a-zA-Z0-9-_]+)&i',
+	__NAMESPACE__ . '\wpdocs_embed_handler_roam'
 );
- 
+
 function wpdocs_embed_handler_roam( $matches, $attr, $url, $rawattr ) {
 	return apply_filters( 'embed_roam_research', render_block( [ 'uid' => $matches[2] ], '' ), $matches, $attr, $url, $rawattr );
 }
