@@ -8,48 +8,61 @@ Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Embed Roam Blocks or pages in WordPress, just as you would in Roam
+Embed Roam Blocks in WordPress, just as you would in Roam
 
 == Description ==
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
+This block let's you search and embed Roam Research blocks inside WordPress block editor.
+WordPress Block editor and Roam are a match made in heaven!
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+= The blocks are embedded =
+
+Once you insert a block into your post, it stays connected to the source **Roam block**.
+If you upload a new Roam export, all the blocks will update on your site. For example - if you have a few "evergreen" pages in Roam, you can embed them in WordPress as your "mind garden" and they will stay updated whenever you upload a new copy of your Roam graph.
+
+If you delete a block in Roam and update Roam export in WordPress, the blocks you inserted will use a cached copy created at the time of writing the post for the first time.
+So you don't have to worry about empty pages.
+
+= WordPress embed functionality =
+
+You can also paste links like `https://roamresearch.com/#/app/graph/page/ratars73` into a WordPress post and they will resolve into an embed of the block
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
 1. Upload the plugin files to the `/wp-content/plugins/roam-block` directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
-
+1. Now you can use "Roam Block" in your posts in the block editor
+1. The first time you use the block, you will have to upload your Roam Graph to WordPress.
+    - Click ( ... ) in the right-top corner of Roam
+    - Click Export All
+    - Choose `JSON`
+    - Unzip the file
+    - Insert "Roam Block" into Gutenberg in WordPress
+    - Click "Upload" in sidebar
+    - Choose the unzipped json
+    - Observe magic
+1. Now you can search your Roam graph directly from the "Roam Block" block or paste embed URLs.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= Why do I have to manually upload the roam graph? =
 
-An answer to that question.
+Roam is still working in providing a proper API. Please harass @Conaw
 
-= What about foo bar? =
+= How do I upload the graph? =
 
-Answer to foo bar dilemma.
+- Click ( ... ) in the right-top corner of Roam
+- Click Export All
+- Choose `JSON`
+- Unzip the file
+- Insert "Roam Block" into Gutenberg in WordPress
+- Click "Upload" in sidebar
+- Choose the unzipped json
+- Observe magic
 
 == Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /.wordpress-org directory
-2. This is the second screen shot
 
 == Changelog ==
 
 = 0.1.0 =
 * Release
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.

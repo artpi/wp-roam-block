@@ -6,7 +6,7 @@ WordPress Block editor and Roam are a match made in heaven!
 This WordPress plugin provides a "roam-block" Gutenberg block.
 ## Important features
 
-#### The block are embedded
+#### The blocks are embedded
 
 Once you insert a block into your post, it stays connected to the source **Roam block**.
 If you upload a new Roam export, all the blocks will update on your site. For example - if you have a few "evergreen" pages in Roam, you can embed them in WordPress as your "mind garden" and they will stay updated whenever you upload a new copy of your Roam graph.
