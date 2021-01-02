@@ -98,3 +98,27 @@ function roam_search( \WP_REST_Request $request ) {
 	$results = search_roam_graph( $graph, $search, '', array(), array() );
 	return $results;
 }
+
+function find_block_by_uid( $uid, $nodes ) {
+	foreach ( $nodes as $child ) {
+		if ( isset( $child['uid'] ) && $child['uid'] === $uid ) {
+			return $child;
+		}
+		if ( !isset( $child['children'] ) || ! $child['children'] ) {
+			return false;
+		}
+		$found = find_block_by_uid( $uid, $child['children'] );
+		if ( $found ) {
+			return $found;
+		}
+	}
+	return false;
+}
+
+function render_block( $attributes, $content ) {
+	$block = find_block_by_uid( $attributes['uid'], json_decode( get_option( 'roam_graph_content' ), true ) );
+	if ( ! $block ) {
+		return $content;
+	}
+	return '<div class="wp-block-artpi-roam-block">' . get_children_content( $block ) . '</div>';
+}

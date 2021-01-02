@@ -58,6 +58,7 @@ function artpi_roam_block_block_init() {
 			'editor_script' => 'artpi-roam-block-block-editor',
 			'editor_style'  => 'artpi-roam-block-block-editor',
 			'style'         => 'artpi-roam-block-block',
+			'render_callback' => 'Artpi\RoamBlock\render_block'
 		)
 	);
 	require_once __DIR__ . '/endpoints.php';
