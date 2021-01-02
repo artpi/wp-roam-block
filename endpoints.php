@@ -43,7 +43,10 @@ function get_children_content( $node ) {
 	$md_parser = new \Parsedown();
 	$ret       = '';
 	if ( isset( $node['string'] ) ) {
-		$ret .= $md_parser->line( $node['string'] );
+		$line = $md_parser->line( $node['string'] );
+		$line = preg_replace( '#\#?\[\[([^\]]+)\]\]#is', '${1}', $line ); // References to pages
+		$line = preg_replace( '%#([\w]+)%is', '${1}', $line ); // Tags
+		$ret .= $line;
 	}
 	if ( isset( $node['children'] ) ) {
 		$ret .= '<ul>';
