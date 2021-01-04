@@ -19,7 +19,6 @@
 		"@wordpress/scripts": "^12.6.0"
 	},
 	"dependencies": {
-		"@wordpress/icons": "^2.9.0",
-		"classnames": "^2.2.6"
+		"@wordpress/icons": "^2.9.0"
 	}
 }
