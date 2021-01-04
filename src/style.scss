@@ -8,3 +8,12 @@
 .wp-block-artpi-roam-block {
 	padding: 2px;
 }
+.wp-block-artpi-roam-block.artpi-roam-block-children-document>div>ul, .wp-block-artpi-roam-block.artpi-roam-block-children-document>div>ul>li {
+	display: block;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.wp-block-artpi-roam-block.artpi-roam-block-header-hidden .artpi-roam-block-depth-1 {
+	display:none;
+}

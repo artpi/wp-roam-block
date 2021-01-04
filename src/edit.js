@@ -4,13 +4,15 @@
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
-import { InspectorControls } from '@wordpress/block-editor';
+import { InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { FormFileUpload, Notice } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import { TextControl } from '@wordpress/components';
 import { useState, useEffect, RawHTML, Fragment } from '@wordpress/element';
 import { Placeholder } from '@wordpress/components';
+import { Toolbar, ToolbarButton } from '@wordpress/components';
+import { formatListBullets, heading } from '@wordpress/icons';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -82,7 +84,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	);
 
 	return (
-		<div { ...useBlockProps() }>
+		<div { ...useBlockProps( { className: 'artpi-roam-block-children-' + attributes.childrenListView + ' artpi-roam-block-header-' + ( attributes.showHeader ? 'visible' : 'hidden' )  } ) }>
 			{
 				<InspectorControls initialOpen={ true }>
 					<PanelBody
@@ -101,6 +103,14 @@ export default function Edit( { attributes, setAttributes } ) {
 					</PanelBody>
 				</InspectorControls>
 			}
+			{  attributes.content && (
+				<BlockControls>
+					<Toolbar label="Options">
+						<ToolbarButton isActive={ attributes.childrenListView === 'list' } icon={ formatListBullets } label="Display as a list" onClick={ () => setAttributes( {  childrenListView: ( attributes.childrenListView === 'list' ) ? 'document' : 'list' } ) } />
+						<ToolbarButton isActive={ !! attributes.showHeader } icon={ heading } label="Include Parent" onClick={ () => setAttributes( {  showHeader: ! attributes.showHeader } ) } />
+					</Toolbar>
+				</BlockControls>
+			) }
 			{ ! attributes.uid && (
 				<Placeholder label="Roam Block Embed">
 					{ graphStatus === 'MISSING' && ( <Fragment>

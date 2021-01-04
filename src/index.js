@@ -41,6 +41,14 @@ registerBlockType( 'artpi/roam-block', {
 		uid: {
 			type: 'string',
 		},
+		childrenListView: {
+			type: 'string', 
+			default: 'list'
+		},
+		showHeader: {
+			type: 'boolean', 
+			default: true
+		},
 		content: {
 			type: 'string',
 			source: 'html',

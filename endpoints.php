@@ -38,7 +38,7 @@ function roam_update_graph( \WP_REST_Request $request ) {
 	return array( 'ok' => true );
 }
 
-function get_children_content( $node ) {
+function get_children_content( $node, $depth = 1 ) {
 	require_once __DIR__ . '/Parsedown.php';
 	$md_parser = new \Parsedown();
 	$ret       = '';
@@ -46,12 +46,12 @@ function get_children_content( $node ) {
 		$line = $md_parser->line( $node['string'] );
 		$line = preg_replace( '#\#?\[\[([^\]]+)\]\]#is', '${1}', $line ); // References to pages
 		$line = preg_replace( '%#([\w]+)%is', '${1}', $line ); // Tags
-		$ret .= $line;
+		$ret .= "<span class='artpi-roam-block-depth-{$depth}'>{$line}</span>";
 	}
 	if ( isset( $node['children'] ) ) {
 		$ret .= '<ul>';
 		foreach ( $node['children'] as $child ) {
-			$ret .= '<li>' . get_children_content( $child ) . '</li>';
+			$ret .= '<li>' . get_children_content( $child, $depth + 1 ) . '</li>';
 		}
 		$ret .= '</ul>';
 	}
@@ -73,7 +73,7 @@ function search_roam_graph( $node, $search, $title = '', $results = [], $parent 
 				[
 					'title'   => $title,
 					'snippet' => wp_strip_all_tags( $md_parser->line( $node['string'] ) ),
-					'content' => get_children_content( $node ),
+					'content' => get_children_content( $node, 1 ),
 					'uid'     => $node['uid'],
 				],
 			]
@@ -142,7 +142,23 @@ function render_block( $attributes, $content ) {
 	if ( ! $block ) {
 		return $content;
 	}
-	return '<div class="wp-block-artpi-roam-block">' . get_children_content( $block ) . '</div>';
+	if ( ! isset( $attributes['childrenListView'] ) ) {
+		$attributes['childrenListView'] = 'list';
+	}
+
+	if ( ! isset( $attributes['showHeader'] ) ) {
+		$attributes['showHeader'] = true;
+	}
+	$classes = join(
+		' ',
+		array(
+			'wp-block-artpi-roam-block',
+			'artpi-roam-block-children-' . $attributes['childrenListView'],
+			'artpi-roam-block-header-' . ( $attributes['showHeader'] ? 'visible' : 'hidden' ),
+		)
+	);
+
+	return '<div class="' . $classes . '"><div>' . get_children_content( $block, 1 ) . '</div></div>';
 }
 
 \wp_embed_register_handler(
