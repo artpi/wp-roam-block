@@ -15,15 +15,15 @@ jobs:
       with:
         generate-zip: true
       env:
-        SVN_USERNAME: $
-        SVN_PASSWORD: $
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SLUG: roam-block
     - name: Upload release asset
       uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: $
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: $
-        asset_path: $/roam-block.zip
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ${{github.workspace}}/roam-block.zip
         asset_name: roam-block.zip
         asset_content_type: application/zip
