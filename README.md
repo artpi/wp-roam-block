@@ -1,4 +1,5 @@
 This WordPress plugin lets you search and embed Roam Research blocks inside WordPress block editor.
+
 WordPress Block editor and Roam are a match made in heaven - they both use blocks as their core concepts.
 [A detailed walkthrough, including a video is published on deliber.at](https://deliber.at/wp-roam-block/)
 ## Why use WordPress if I have Roam?
@@ -15,6 +16,7 @@ Using WordPress with Roam is possible without this plugin as well, but is tediou
 
 - You have to copy-paste
 - It makes it especially hard for evergreen content (AKA mind gardens). You have to remember to update them on your site periodically. This plugin fixes this.
+
 ## Feature rundown
 
 #### The blocks are embedded
