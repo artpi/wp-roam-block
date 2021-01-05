@@ -14,6 +14,7 @@ Embed Roam Blocks in WordPress, just as you would in Roam Research.
 
 This block let's you search and embed [Roam Research](https://roamresearch.com/) blocks inside WordPress block editor.
 WordPress Block editor and Roam are a match made in heaven!
+[Detailed description and a video on this blog.](https://deliber.at/wp-roam-block/)
 
 = The blocks are embedded =
 
@@ -67,6 +68,15 @@ Roam is still working in providing a proper API. Please harass @Conaw
 - Observe magic
 
 == Screenshots ==
+
+1. Comparison of a block in Roam and the same block embedded in WordPress
+2. You upload new version of your Roam graph from block sidebar
+3. The block has a search window
+4. You can display your content "as a document" or "as a list"
+
+== Development ==
+
+[All Development and issues in this github repository.](https://github.com/artpi/wp-roam-block)
 
 == Changelog ==
 
