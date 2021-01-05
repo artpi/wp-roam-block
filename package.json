@@ -1,6 +1,6 @@
 {
 	"name": "roam-block",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Embed Roam Blocks or pages in WordPress, just as you would in Roam",
 	"author": "artpi",
 	"license": "GPL-2.0-or-later",
