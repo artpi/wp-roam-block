@@ -1,10 +1,21 @@
-# Roam Research Block for WordPress
+This WordPress plugin lets you search and embed Roam Research blocks inside WordPress block editor.
+WordPress Block editor and Roam are a match made in heaven - they both use blocks as their core concepts.
+[A detailed walkthrough, including a video is published on deliber.at](https://deliber.at/wp-roam-block/)
+## Why use WordPress if I have Roam?
 
-This block let's you search and embed Roam Research blocks inside WordPress block editor.
-WordPress Block editor and Roam are a match made in heaven!
+Roam is fantastic for drafting, connecting, and downloading concepts from your brain. The way you would usually work is to build knowledge over time, connecting ideas to each other. But not all ideas are ready for distrubution.
 
-This WordPress plugin provides a "roam-block" Gutenberg block.
-## Important features
+- Some of them have parts that are ready to see the light of day
+- Many others will evolve over time as your understanding of the underlying concepts does
+
+WordPress on the other hand is the most popular tool for publishing on the market. You can ensure your content is presented in the best possible way on a variety of devices and to people who should see it.
+
+Combining the two plays to each other's strengths.
+Using WordPress with Roam is possible without this plugin as well, but is tedious:
+
+- You have to copy-paste
+- It makes it especially hard for evergreen content (AKA mind gardens). You have to remember to update them on your site periodically. This plugin fixes this.
+## Feature rundown
 
 #### The blocks are embedded
 
@@ -18,18 +29,29 @@ So you don't have to worry about empty pages.
 
 You can also paste links like `https://roamresearch.com/#/app/graph/page/ratars73` into a WordPress post and they will resolve into an embed of the block
 
-### Why do I have to manually upload the roam graph?
+### Cleans up your Roam markup
 
-Roam is still working in providing a proper API. Please harass @Conaw
+The block with strip `[[]]`. In the future I hope it will link them properly.
 
-#### How do I upload the graph?
+## How to start
 
-- Click ( ... ) in the right-top corner of Roam
-- Click Export All
-- Choose `JSON`
-- Unzip the file
-- Insert "Roam Block" into Gutenberg in WordPress
-- Click "Upload" in sidebar
-- Choose the unzipped json
-- Observe magic
+[Find this plugin in your WordPress plugins section](https://wordpress.org/plugins/roam-block/), install it
+1. Activate the plugin through the 'Plugins' screen in WordPress
+1. Now you can use "Roam Block" in your posts in the block editor
+1. The first time you use the block, you will have to upload your Roam Graph to WordPress.
+    - Click ( ... ) in the right-top corner of Roam
+    - Click Export All
+    - Choose `JSON`
+    - Unzip the file
+    - Insert "Roam Block" into Gutenberg in WordPress
+    - Click "Upload" in sidebar
+    - Choose the unzipped json
+    - Observe magic
+1. Now you can search your Roam graph directly from the "Roam Block" block or paste embed URLs.
+
+### Why do I have to manually upload the Roam graph?
+
+Roam is still working in providing a proper API. Please harass @Conaw.
+In the meantime, [I am working on a Roam Private API](https://github.com/artpi/roam-research-private-api) - integration with WordPress will soon follow.
+
 
