@@ -1,8 +1,9 @@
 <?php
 /**
  * Plugin Name:     Roam Block
+ * Plugin URI:      https://deliber.at/wp-roam-block/
  * Description:     Embed Roam Blocks or pages in WordPress, just as you would in Roam
- * Version:         0.1.0
+ * Version:         0.1.1
  * Author:          Artur Piszek (artpi)
  * Author URI:      https://piszek.com
  * License:         GPL-2.0-or-later
