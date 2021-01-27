@@ -11,7 +11,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { TextControl } from '@wordpress/components';
 import { useState, useEffect, RawHTML, Fragment } from '@wordpress/element';
 import { Placeholder } from '@wordpress/components';
-import { Toolbar, ToolbarButton } from '@wordpress/components';
+import { Toolbar, ToolbarButton, Button } from '@wordpress/components';
 import { formatListBullets, heading } from '@wordpress/icons';
 
 /**
@@ -59,8 +59,16 @@ function upload( file, setGraphStatus ) {
  */
 export default function Edit( { attributes, setAttributes } ) {
 	const [ search, setSearch ] = useState( '' );
+	const [ uploadURL, setUploadURL ] = useState( '' );
 	const [ foundBlocks, setFoundBlocks ] = useState( [] );
 	const [ graphStatus, setGraphStatus ] = useState( 'OK' );
+
+	function toggleSecretUrlPanel( open ) {
+		if ( open ) {
+			apiFetch( { path: '/roam-research/get_upload_token' } )
+			.then( ( data ) => setUploadURL( data.url ) );
+		}
+	}
 
 	useEffect(
 		() => {
@@ -100,6 +108,18 @@ export default function Edit( { attributes, setAttributes } ) {
 						>
 							{ __( 'Upload .json file from Roam Research export', 'roam-block' ) }
 						</FormFileUpload>
+					</PanelBody>
+					<PanelBody
+						title={ __( 'Secret Upload URL', 'roam-block' ) }
+						initialOpen={ false }
+						onToggle = { toggleSecretUrlPanel }
+					>
+						<p>{ __( 'You can use automated script to keep your graph updated. Keep this URL private - it will allow everyone to update Roam Graph on your blog.', 'roam-block' ) }</p>
+						<a href="https://deliber.at/roam/roam-api"><p>{ __( 'Instructions how to set up Roam-Research-Private-API to do so for you.', 'roam-block' ) }</p></a>
+						<TextControl
+							label="Secret Upload URL"
+							value={ uploadURL }
+						/>
 					</PanelBody>
 				</InspectorControls>
 			}

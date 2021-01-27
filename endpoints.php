@@ -10,7 +10,7 @@ add_action(
 			array(
 				'methods'             => 'POST',
 				'callback'            => __NAMESPACE__ . '\roam_update_graph',
-				'permission_callback' => __NAMESPACE__ . '\check_permissions',
+				'permission_callback' => __NAMESPACE__ . '\check_permissions_upload',
 			)
 		);
 		register_rest_route(
@@ -22,16 +22,57 @@ add_action(
 				'permission_callback' => __NAMESPACE__ . '\check_permissions',
 			)
 		);
+		register_rest_route(
+			'roam-research',
+			'/get_upload_token',
+			array(
+				'methods'             => 'GET',
+				'callback'            => __NAMESPACE__ . '\roam_get_upload_token',
+				'permission_callback' => __NAMESPACE__ . '\check_permissions',
+			)
+		);
 	}
 );
+
+function check_permissions_upload( \WP_REST_Request $request ) {
+	if ( check_permissions() ) {
+		return true;
+	}
+	$params = $request->get_params();
+	$token = get_option( 'roam_update_token' );
+	if ( $token && $params['token'] === $token ) {
+		return true;
+	}
+	return false;
+}
 
 function check_permissions() {
 	// Only for admins for time being
 	return current_user_can( 'edit_posts' );
 }
 
+function roam_get_upload_token( \WP_REST_Request $request ) {
+	$token = get_option( 'roam_update_token' );
+	if ( ! $token ) {
+		$token = wp_generate_password( 20, false );
+		update_option( 'roam_update_token', $token );
+	}
+	$url = get_rest_url( null, 'roam-research/upload-graph' );
+	$query = parse_url( $url, PHP_URL_QUERY );
+
+	$url = $url . ( $query ? '&' : '?' ) . 'token=' . $token;
+	return array(
+		'token' => $token,
+		'url' => $url,
+	);
+}
+
 function roam_update_graph( \WP_REST_Request $request ) {
 	$params = $request->get_params();
+	if ( ! is_string( $params['graphContent'] ) ) {
+		$params['graphContent'] = json_encode( $params['graphContent'] );
+	}
+
 	update_option( 'roam_graph_content', $params['graphContent'] );
 	update_option( 'roam_graph_name', $params['graphName'] );
 	update_option( 'roam_graph_update', time() );
