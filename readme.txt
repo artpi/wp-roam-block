@@ -3,7 +3,7 @@ Contributors:      artpi
 Tags:              block
 Requires at least: 5.3.1
 Tested up to:      5.3.1
-Stable tag:        0.1.2
+Stable tag:        0.1.3
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -52,9 +52,10 @@ You can also paste links like `https://roamresearch.com/#/app/graph/page/ratars7
 Roam Research is a tool for networked thought - a note-taking tool that is block-based.
 Since blocks are a conceptual unit of both Gutenberg and Roam - I created this plugin.
 
-= Why do I have to manually upload the roam graph? =
+= Do I have to manually upload the roam graph? =
 
-Roam is still working in providing a proper API. Please harass @Conaw
+Roam does not have an API that could run through WordPress. I have built a project that can keep your Roam graph in WP automatically updated, but it has to run on another machine.
+[Details how to set it up are here.](https://deliber.at/roam/wp-roam-block/)
 
 = How do I upload the graph? =
 
@@ -84,3 +85,5 @@ Roam is still working in providing a proper API. Please harass @Conaw
 * Release
 = 0.1.2 =
 * Fix WordPress version tag
+= 0.1.3 =
+* Expose update URL to automatically update Roam Graph via https://deliber.at/roam/roam-api/

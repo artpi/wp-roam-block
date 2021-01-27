@@ -51,9 +51,17 @@ The block with strip `[[]]`. In the future I hope it will link them properly.
     - Observe magic
 1. Now you can search your Roam graph directly from the "Roam Block" block or paste embed URLs.
 
-### Why do I have to manually upload the Roam graph?
+### Automatically updating your Roam Graph in WordPress
 
-Roam is still working in providing a proper API. Please harass @Conaw.
-In the meantime, [I am working on a Roam Private API](https://github.com/artpi/roam-research-private-api) - integration with WordPress will soon follow.
+Roam does not have a REST API on the web you can hook into.
+To easily automate using Roam, I have [built Roam Private API](https://deliber.at/roam/roam-api).
+This tool runs an invisible browser and copies your Roam database, so it's unfortunately impossible to bundle as a WP plugin. You have to run it on a host that can run node and npm.
+
+Here is how you could use it to keep your WP copy of the Roam Graph updated:
+
+- Insert block to the post, open sidebar and copy "Secret Upload URL". Do not share this with anybody.
+- Install Roam-Research-Private-API via `npm install -g roam-research-private-api`
+- Running command `roam-api export ~/Desktop http://your-wordpress.com.wp-json/roam/upload-graph?token=secret_token.` will copy the Roam graph content and **upload it to your WordPress**. You can put that in cron for example.
+
 
 
